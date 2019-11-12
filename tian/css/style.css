@@ -1,0 +1,39 @@
+	* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-size: 16px;
+			color: #FFFFFF;
+			background: url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2546823706,4052786157&fm=26&gp=0.jpg) no-repeat center center;
+			background-size: cover;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		.fl {
+			float: left;
+		}
+
+		.fr {
+			float: right;
+		}
+
+		.bj{
+			height: 24px;
+			background: #000000;
+		}
+		.da .herder{
+			text-align: center;
+			width: 1.5rem;
+			margin: 0 auto;
+		}
