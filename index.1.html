@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable, maximum-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title></title>
+		<link rel="stylesheet" href="css/demo.css">
+		<link rel="stylesheet" href="css/iconfont.css">
+	</head>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			/* overflow: hidden; */
+			font-size: 16px;
+			color: #FFFFFF;
+			background: url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2546823706,4052786157&fm=26&gp=0.jpg) no-repeat center center;
+			background-size: cover;
+		}
+
+		ul {
+			list-style: none;
+			overflow: hidden;
+		}
+
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			overflow-y: auto;
+		}
+
+		.fl {
+			float: left;
+		}
+
+		.fr {
+			float: right;
+		}
+
+		.herder {
+			margin: .2rem auto;
+			text-align: center;
+			width: 3.5rem;
+			border-radius: .1rem;
+			background-image: linear-gradient(to right, rgba(000, 000, 000, .1) 0%, rgba(000, 000, 000, .2) 100%);
+			box-shadow: 0px 0px 16px 2px rgba(255, 255, 255, .55) inset;
+			padding: .15rem 0;
+		}
+
+		.herder ul li {
+			background: rgba(43, 43, 43, 0.3);
+			padding: .12rem 0rem;
+		}
+
+		.herder h1 {
+			font-size: .2rem;
+			text-align: center;
+			margin-bottom: .1rem;
+		}
+
+		.kb {
+			height: 24px;
+			background-color: rgba(000, 000, 000, 0.1);
+			
+		}
+
+		.box {
+			overflow-x: auto;
+			background-image: linear-gradient(to right, rgba(000, 000, 000, .1) 0%, rgba(000, 000, 000, .2) 100%);
+			box-shadow: 0px 0px 16px 2px rgba(255, 255, 255, .55) inset;
+		}
+
+		.box ul {
+			width: 12rem;
+
+		}
+
+		.box ul li {
+			width: 1.5rem;
+			background: rgba(43, 43, 43, 0.3);
+			padding: .12rem .2rem;
+			float: left;
+		}
+
+		.neirong {
+			font-size: .15rem;
+			overflow: hidden;
+			/* display: none; */
+		}
+
+		.neirong ul {
+			margin: 0 auto;
+			width: 2.76rem;
+		}
+
+		.neirong ul li {
+			float: left;
+			width: .92rem;
+			text-align: center;
+		}
+
+		.yc {
+			display: none;
+		}
+
+		.navs {
+			overflow-x: auto;
+		}
+
+		navs::-webkit-scrollbar {
+			width: 4px;
+			height: 4px;
+		}
+
+		.navs::-webkit-scrollbar-thumb {
+			border-radius: 5px;
+			-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+			background: rgba(0, 0, 0, 0.2);
+		}
+
+		.navs::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+			border-radius: 0;
+			background: rgba(0, 0, 0, 0.1);
+		}
+
+		.ersi {
+			
+			margin: 0 auto .3rem;
+
+			background-image: linear-gradient(to right, rgba(000, 000, 000, .1) 0%, rgba(000, 000, 000, .2) 100%);
+			box-shadow: 0px 0px 16px 2px rgba(255, 255, 255, .55) inset;
+		}
+		.ersi .xs{	
+			overflow-y: auto;
+			width: 3.6rem;
+			height: 3rem;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.ersi h1{
+			text-align: center;
+			font-size: .2rem;
+		}
+		.box h1{
+			text-align: center;
+			font-size: .2rem;
+		}
+		.ersi .xs span{
+			margin: .05rem;
+			display: inline-block;
+		}
+		.ersi .xs .xiao{
+			width: .9rem;
+		}
+		.ss{
+			text-align: center;
+			background-image: linear-gradient(to right, rgba(000, 000, 000, .1) 0%, rgba(000, 000, 000, .2) 100%);
+			box-shadow: 0px 0px 16px 2px rgba(0, 0, ., .55) inset;
+		}
+	</style>
+	<body>
+		<div>
+			<div class="kb"></div>
+			<div class="ss"><input class="sr" type="text"placeholder="输入城市，如：广州" value="" /><span class="btm">切换</span></div>
+		</div>
+		<div class="dabox">
+			<div class="ersi" id="ersi">
+				<h1>24小时预告</h1>
+				<div class="xs yc">
+					<ul id="erlis">
+					</ul>
+				</div>
+			</div>
+			
+			<div class="box" id="box">
+				<h1>未来6天预告</h1>
+				<ul id="liss" class="yc">
+
+				</ul>
+			</div>
+		</div>
+		<script src="js/jquery-3.4.1.js"></script>
+		<script type="text/javascript">
+			function zuida(c) {
+				
+				
+				$.ajax({
+					url: 'https://www.tianqiapi.com/api/',
+					data: {
+						appid: '42768524',
+						appsecret: '2FGGlGut',
+						version: 'v9',
+						city: c
+					},
+					dataType: 'jsonp',
+					success: function(data) {
+						console.log(data);
+
+						var ggg =
+							`
+			<div class="herder">
+				<h1>` +
+							data.city + `</h1>
+				<div class="da">` + data.data[0].date + `</div>
+				<div class="zhong">` + data.data[
+								0].wea + `<i class="iconfont icon-` + data.data[0].wea_night_img + `"></i></div>
+				<div class="xiao">` +
+							data.data[0].tem + `℃</div>
+				<div class="neirong xs yc">
+					<ul class="">
+						<li>
+							<p>` +
+							data.data[0].air + `:` + data.data[0].air_level +
+							`</p>
+							<p>空气质量</p>
+						</li>
+						<li>
+							<p>` +
+							data.data[0].tem1 +
+							`℃</p>
+							<p>最高温度</p>
+						</li>
+						<li>
+							<p>` +
+							data.data[0].tem1 +
+							`℃</p>
+							<p>最低温度</p>
+						</li>
+						<li>
+							<p>` +
+							data.data[0].sunrise +
+							`</p>
+							<p>日出时间</p>
+						</li>
+						<li>
+							<p>` +
+							data.data[0].sunset +
+							`</p>
+							<p>日落时间</p>
+						</li>
+						<li>
+							<p>` +
+							data.data[0].humidity +
+							`</p>
+							<p>湿度</p>
+						</li>
+						<li>
+							<p>` +
+							data.data[0].pressure +
+							`kPa</p>
+							<p>气压</p>
+						</li>
+				
+						<li>
+							<p>` +
+							data.data[0].win +
+							`</p>
+							<p>风向</p>
+						</li>
+						<li>
+							<p>` +
+							data.data[0].win_speed +
+							`</p>
+							<p>风速</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+							
+								`;
+						$('.dabox').prepend(ggg);
+
+							var we=data.data[0].hours;
+							
+								$.each(we, function(i, v) {
+									var ooo=`
+							<li>
+								<span>${v.hours}</span>
+								<span>${v.tem}</span>
+								<span>${v.wea}<i class="iconfont icon-${v.wea_img}"></i></span>
+								<span class="xiao">${v.win}</span>
+								<span>${v.win_speed}</span>
+							</li>`;
+									$('#erlis').append(ooo);
+								})
+		
+						$.ajax({
+							url: 'https://www.tianqiapi.com/api/',
+							data: {
+								appid: '42768524',
+								appsecret: '2FGGlGut',
+								version: 'v1',
+								city: c
+							},
+							dataType: 'jsonp',
+							success: function(remp) {
+								var aa = remp.data.slice(1)
+								$.each(aa, function(i, v) {
+									var li =
+										`
+										<li>
+											<div>
+												<p>${v.day}</p>
+												<p>气温${v.tem1}</p>
+												<p>${v.wea}<span class="iconfont icon-${v.wea_img}"></span></p>
+												<p>${v.win[1]}${v.win_speed}</p>
+											</div>
+										</li>`;
+									$('#liss').append(li);
+								})
+							}
+						})
+
+
+
+						var lis = $('#box').children().children();
+						lis.on('click', function() {
+							var dd = $(this).find('.neirong');
+							dd.toggle(300);
+							dd.parent().siblings().find('.neirong').hide(300);
+
+						})
+						$('.herder').on('click', function() {
+							$(this).find('.neirong').toggle(300);
+
+						})
+						
+						
+
+					},
+				})
+						}
+
+
+
+
+			zuida();
+
+			function setRem() {
+				var standardWidth = 375;
+				var innerW = innerWidth;
+				var fontSize = innerWidth / 375 * 100;
+				var style = document.createElement('style');
+				style.innerHTML = 'html{font-size: ' + fontSize + 'px;}';
+
+				style.setAttribute('id', 'stylerem');
+
+				document.getElementsByTagName('head')[0].appendChild(style);
+
+
+			}
+			setRem();
+			window.onresize = function() {
+				var stylerem = document.getElementById('stylerem');
+				if (stylerem) {
+					stylerem.remove();
+				}
+				setRem();
+			}
+			$('.ersi').on('click', function() {
+				$(this).find('.xs').toggle(300);
+			
+			})
+			$('.box').on('click', function() {
+				$(this).find('#liss').toggle(300);
+			
+			})
+
+		$('.btm').on('click', function () {
+		  var city = $('.sr').val();
+		
+		  if (city == undefined || city.trim() == '') {
+		    return;
+		  }
+		
+		  console.log(city);
+		
+		 $('.herder,.erlis').remove();
+		 $('#liss').empty();
+		
+		  zuida(city)
+		
+		})
+		
+		</script>
+	</body>
+</html>
